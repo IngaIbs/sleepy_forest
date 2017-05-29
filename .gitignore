@@ -6,8 +6,6 @@
 .ipynb_checkpoints/
 __pycache__/
 tmp/
-mysql/
-.env
 
 *.db
 *.DS_Store
@@ -22,6 +20,5 @@ mysql/
 *.ipynb_checkpoints
 *.db-journal
 *.bak
-ssh*
 
 *.idea
