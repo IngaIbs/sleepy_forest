@@ -1,4 +1,4 @@
-# Random Forest
+# Classifiers
 ## Performance
 - Assessed with crossvalidation, Score: 0.923
 
@@ -31,7 +31,6 @@
 
 -> Classifiers with unrestricted depth and less features for split perform better
 
-# AdaBoost
 
 ## AdaBoost in Scikit learn
 
@@ -61,12 +60,10 @@
 | Model  |  N Trees |Tree Depth | Algorithm |  Score           |
 | ------ | ---------| --------  | --------- |  :-------------- |
 | 18     | 106      |   1       | SAMME     | 0.570 $\pm$ 0.002|
-| 19     | 82       |   1       |   SAMME   | 0.559 $\pm$ 0.000|
+| 19     | 82       |   1       |   SAMME   | 0.559 $\pm$ 0.001|
 | 20     | 77       |   1       |  SAMME    | 0.465 $\pm$ 0.006|
 
 -> Classifiers with more trees, depth and SAMME.R performs better
-
-# Comparison on validation data
 
 ## Random Forest performance
 
