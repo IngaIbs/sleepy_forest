@@ -1,6 +1,6 @@
 # Random Forest
 ## Performance
-- Assessed with crossvalidation
+- Assessed with crossvalidation, Score: 0.923
 
 ![Confusion Matrix](gfx/random_forest_confusion.png)
 ![Normalized Confusion Matrix](gfx/random_forest_confusion_norm.png)
@@ -15,9 +15,9 @@
 
 | Model |  Bootstrap | Criterion | Depth  | Features for split | N Trees | Score           |
 | ----- | ---------- | --------- | :-----:| :-----------------:| :------ | :-------------- |
-| 1     | True       |  Entropy  | None   |  10                |    61   |0.920 $\pm$ 0.001|
-| 2     | False      |  Entropy  | None   |  21                |    70   |0.919 $\pm$ 0.002|
-| 3     | True       |  Entropy  | None   |  9                 |    35   |0.918 $\pm$ 0.003|
+| 1     | False      |  Entropy  | None   |  21                |    73   |0.919 $\pm$ 0.003|
+| 2     | False      |  Entropy  | None   |  16                |    25   |0.919 $\pm$ 0.004|
+| 3     | False      |  Entropy  | None   |  14                |    25   |0.918 $\pm$ 0.002|
 
 
 ## The worst Forest Parameters
@@ -25,39 +25,46 @@
 
 | Model |  Bootstrap | Criterion | Depth  | Features for split | N Trees | Score           |
 | ----- | ---------- | --------- | :-----:| :-----------------:| :------ | :-------------- |
-| 18    | True       |  Entropy  | 3      |  31                |    73   |0.541 $\pm$ 0.021|
-| 19    | True       |  Gini     | 3      |  34                |    37   |0.525 $\pm$ 0.003|
-| 20    | False      |  Entropy  | 3      |  30                |    91   |0.504 $\pm$ 0.028|
+| 18    | True       |  Entropy  | 3      |  37               |    53   |0.498 $\pm$ 0.039|
+| 19    | False      |  Entropy  | 3      |  38               |    25   |0.453 $\pm$ 0.020|
+| 20    | False      |  Entropy  | 3      |  38               |    48   |0.441 $\pm$ 0.028|
 
--> Depth matters
+-> Classifiers with unrestricted depth and less features for split perform better
 
 # AdaBoost
 
+## AdaBoost in Scikit learn
+
+- Scikit learn uses as algorithm SAMME/SAMME.R
+- SAMME : Stagewise Additive Modeling using a Multi-class Exponential loss function (@freund1997decision),
+- puts more weight on misclassified data points than AdaBoost you know
+- SAMME.R (R for real) uses weighted probability esitimates to update the additive model (empirical vs. population loss)
+
 ## Performance
-- Assessed with crossvalidation
+- Assessed with crossvalidation, Score:  0.745
 
 ![Confusion Matrix](gfx/adaboost_confusion.png)
 ![Normalized Confusion Matrix](gfx/adaboost_confusion_norm.png)
 
 ## The best AdaBoost Parameters
 
-| Model |  N Trees | Algorithm |  Score           |
-| ----- | ---------| --------- |  :-------------- |
-| 1     | 81       |  SAMME.R | 0.620 $\pm$ 0.006|
-| 2     | 78       |  SAMME.R  | 0.620 $\pm$ 0.005|
-| 3     | 98       |  SAMME.R | 0.620 $\pm$ 0.007|
+| Model |  N Trees  |Tree Depth| Algorithm |  Score           |
+| ----- | ----------| -------- | --------- |  :-------------- |
+| 1     | 188       |   3      | SAMME.R   | 0.810 $\pm$ 0.006|
+| 2     | 151       |    3     |  SAMME.R  | 0.797 $\pm$ 0.003|
+| 3     | 128       |    3     |  SAMME.R  | 0.791 $\pm$ 0.002|
 
 
 ## The worst AdaBoost Parameters
 
 
-| Model  |  N Trees | Algorithm |  Score           |
-| ------ | ---------| --------- |  :-------------- |
-| 18     | 34       |  SAMME    | 0.511 $\pm$ 0.025|
-| 19     | 28       |  SAMME    | 0.506 $\pm$ 0.021|
-| 20     | 18       |  SAMME    | 0.465 $\pm$ 0.024|
+| Model  |  N Trees |Tree Depth | Algorithm |  Score           |
+| ------ | ---------| --------  | --------- |  :-------------- |
+| 18     | 106      |   1       | SAMME     | 0.570 $\pm$ 0.002|
+| 19     | 82       |   1       |   SAMME   | 0.559 $\pm$ 0.000|
+| 20     | 77       |   1       |  SAMME    | 0.465 $\pm$ 0.006|
 
--> SAMME.R performs better
+-> Classifiers with more trees, depth and SAMME.R performs better
 
 # Comparison on validation data
 
@@ -70,3 +77,22 @@
 
 ![Confusion Matrix](gfx/adaboost_confusion_val.png)
 ![Normalized Confusion Matrix](gfx/adaboost_confusion_norm_val.png)
+
+## Classification results visualized
+
+![Wrong predictions vizualized for the different sleep stages for one recording](gfx/clf_results_random_forest_subj1.png)
+
+- Only for one subject
+- Using Random Forest Classifier, Score:  0.945
+
+## An idea to improve the predictions
+
+!['Improved' predictions vizualized for the different sleep stages for one recording](gfx/clf_results_random_forest_subj1_smooth.png)
+
+- Smoothing out wrong prediction in the middle of the sleep face
+- Smoothing kernel size 15 Timesteps (1sec)
+- A little improvement, Score: 0.959
+
+
+
+
