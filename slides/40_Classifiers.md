@@ -36,7 +36,7 @@
 
 - Scikit learn uses as algorithm SAMME/SAMME.R
 - SAMME : Stagewise Additive Modeling using a Multi-class Exponential loss function (@freund1997decision),
-- puts more weight on misclassified data points than AdaBoost you know
+- Puts more weight on misclassified data points than AdaBoost you know
 - SAMME.R (R for real) uses weighted probability esitimates to update the additive model (empirical vs. population loss)
 
 ## Performance of the AdaBoost Classifier
