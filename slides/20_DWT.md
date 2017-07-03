@@ -8,13 +8,12 @@
 
 
 ## Wavelet Transform
-###Key Concepts 
- ![Wavelts:http://www.nocions.org/research/analysis-of-the-eeg-using-the-wavelet-transform/](gfx/wavelet transform EEG ERD ERS event-related potentials time frequencya.jpg)
+ ![Wavelts: @WaveletTransformOverview](gfx/wavelet transform EEG ERD ERS event-related potentials time frequencya.jpg)
 
 ## Wavelet Transform
 * CWT is a convolution between a wavelet at different scales and the signal with the scale being used as a measure of similarity.
 
-![Continuos Wavelet Transform](gfx/wavelet transform.JPG )
+![Continuos Wavelet Transform, @oropesa1999sleep](gfx/wavelet transform.JPG )
 
 * In the case of the discrete wavelet transform, the mother wavelet is shifted and scaled by powers of 2.
 
@@ -22,7 +21,7 @@
 
 ## Wavelet Transform
 
-![Graphical representation of the convolution:http://users.rowan.edu/~polikar/WAVELETS/WTpart1.html](gfx/figure1_11.gif )
+![Graphical representation of the convolution, @WaveletTutorial](gfx/figure1_11.gif )
 
 ## Wavelet Discrete Decomposition
 
@@ -35,7 +34,7 @@
 ## Wavelet Decomposition-Time And Frequency Resolutions
 * This procedure in effect offers a good time resolution at high frequencies, and good frequency resolution at low frequencies
 
-![Time And Frequency Resolutions:http://www.wavelet.org/tutorial/wbasic.htm](gfx/fpsyg-05-01566-g001.jpg )
+![Time And Frequency Resolutions: @WaveletBasics](gfx/fpsyg-05-01566-g001.jpg )
 
 ## Wavelet Decomposition -EEG Signal
 
