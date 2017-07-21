@@ -10,7 +10,6 @@ Created on Fri Jul 21 15:05:22 2017
 
 import pywt
 import pandas as pd
-import matplotlib.pyplot as plt
 import numpy as np
 import scipy.ndimage    
 import scipy.signal    
@@ -23,7 +22,7 @@ mode = pywt.Modes.smooth
 # read the data: with all subjects: takes a long time (~20min)
 def load_data():
     
-    if not os.path.exists('../data/all_data/all_data.csv'):
+    if not os.path.exists('../data/all_data/all_databla.csv'):
        # strings = ['b','c','d','e','f']
         strings = []
         data = pd.read_csv('../data/by_subject/a_data.csv')
@@ -103,6 +102,9 @@ def main():
         features.append(power_vec)
         
     features =np.asarray(features)
+    
+    if not os.path.exists("../data/precomputed_features/"):
+        os.makedirs("../data/precomputed_features/")
     np.savetxt("../data/precomputed_features/features.csv", features, delimiter = ',')
     np.savetxt("../data/precomputed_features/targets.csv", labels['Event'], delimiter = ',', fmt= '%s')
 
