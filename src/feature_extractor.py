@@ -23,7 +23,7 @@ mode = pywt.Modes.smooth
 # read the data: with all subjects: takes a long time (~20min)
 def load_data():
     
-    if not os.path.exists('../data/all_data.csv'):
+    if not os.path.exists('../data/all_data/all_data.csv'):
        # strings = ['b','c','d','e','f']
         strings = []
         data = pd.read_csv('../data/by_subject/a_data.csv')
