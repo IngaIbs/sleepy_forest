@@ -49,18 +49,25 @@ def main():
         data['subject_id'] = s
         labels = pd.read_csv('../data/by_subject/'+s+'_labels.csv')
 
-        # group datapoints into bins, corresponding to a second of recording time
-        data['TimestampToSec'] = data['Timestamp'].astype(int)
-        grouped = data.groupby('TimestampToSec')
-        # for every labeled second
-        for l in range(len(labels)):
+        # for snippt_length sec snipped grouping
+        snippet_length = 30
+        data['TimestampGrouping'] = (data['Timestamp'] / snippet_length).astype(int)
+        labels['TimestampGrouping'] = (labels['Timestamp'] / snippet_length).astype(int)
+
+        labels_grouped = labels.groupby('TimestampGrouping')
+        labels_grouped_count = labels_grouped.count()
+        data_grouped = data.groupby('TimestampGrouping')
+
+        # delete all rows for which there too few data
+        labels_grouped_count = labels_grouped_count[labels_grouped_count.Event == snippet_length]
+        labels_full_snippets = labels_grouped_count.index
+
+        for l in range(len(labels_full_snippets)):
             try:
-                time = labels['Timestamp'][l]
-                slice = grouped.get_group(time)
+                slice = data_grouped.get_group(labels_full_snippets[l])
             except KeyError:
                 print(time)
                 pass
-
             # for every channel
             power_all_channels = []
             # 1-7 EEG, 8th channel is ECG data
@@ -87,13 +94,19 @@ def main():
             # currently mean power of the frequency bands over all channels are the only features
             power_vec = np.asarray(power_vec)
             features.append(power_vec)
-        labels['subject_id'] = subject[0]
-        targets = pd.concat([targets, labels])
+        subj_targets = pd.DataFrame(index=labels_full_snippets)
+        events = []
+        for t in range(len(labels_full_snippets)):
+            a = labels_grouped.get_group(labels_full_snippets[t])['Event']
+            events.append(a.values[0])
+        subj_targets['Event'] = events
+        subj_targets['subject_id'] = subject[0]
+
+        targets = pd.concat([targets, subj_targets])
 
     features = np.asarray(features)
-    features_df = pd.DataFrame(features,index=targets['Timestamp'])
-    del targets['Id']
-    targets = targets.set_index(['Timestamp'])
+    features_df = pd.DataFrame(features,index=targets.index)
+
     if not os.path.exists("../data/precomputed_features/"):
         os.makedirs("../data/precomputed_features/")
     features_df.to_csv("../data/precomputed_features/features.csv")
